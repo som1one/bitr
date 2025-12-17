@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8465b308-3637-4ebe-ad84-820c51ce4d7e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../PythonProject1/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PythonProject1/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PythonProject1/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PythonProject1/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../bitr/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../bitr/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../bitr/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../bitr/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../bitr/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../bitr/backend/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b-frello/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/b-frello/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b-frello/src/ai/model/ai-plan.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/b-frello/src/ai/model/ai-plan.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b-frello/src/ai/model/json-checks.ts" beforeDir="false" afterPath="$PROJECT_DIR$/b-frello/src/ai/model/json-checks.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b-frello/src/ai/model/meal-labels.ts" beforeDir="false" afterPath="$PROJECT_DIR$/b-frello/src/ai/model/meal-labels.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b-frello/src/ai/model/request-types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/b-frello/src/ai/model/request-types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b-frello/src/ai/services/ai-http-client/ai-http-client.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/b-frello/src/ai/services/ai-http-client/ai-http-client.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b-frello/src/ai/services/ai-plan-generator/ai-plan-generator.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/b-frello/src/ai/services/ai-plan-generator/ai-plan-generator.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b-frello/src/ai/services/ai-process.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/b-frello/src/ai/services/ai-process.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b-frello/src/ai/services/plan/ai-parse-plan.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/b-frello/src/ai/services/plan/ai-parse-plan.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b-frello/src/ai/services/plan/ai-plan.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/b-frello/src/ai/services/plan/ai-plan.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b-frello/src/ai/services/prepare/ai-prepare.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/b-frello/src/ai/services/prepare/ai-prepare.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b-frello/src/ai/services/recipe/ai-recipe.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/b-frello/src/ai/services/recipe/ai-recipe.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b-frello/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/b-frello/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b-frello/src/plan/plan.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/b-frello/src/plan/plan.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b-frello/src/user/user.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/b-frello/src/user/user.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b-frello/src/user/user.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/b-frello/src/user/user.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b-frello/src/user/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/b-frello/src/user/user.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/ecosystem.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/ecosystem.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/public/images/firstScreenImages/sprava.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/public/images/firstScreenImages/sprava.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/api/interceptors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/api/interceptors.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/layout/appLayout/NavigationMenu.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/layout/appLayout/NavigationMenu.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/layout/navBar/NavBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/layout/navBar/NavBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/chat/NewChat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/chat/NewChat.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/chat/components/InputForm/InputForm.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/chat/components/InputForm/InputForm.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/chat/components/InputForm/InputForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/chat/components/InputForm/InputForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/favoriteDishes/components/Recipe/Recipe.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/favoriteDishes/components/Recipe/Recipe.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/mealPlans/NewMealPlans.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/mealPlans/NewMealPlans.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/mealPlans/NewMealPlans.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/mealPlans/NewMealPlans.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/mealPlans/components/MealPlansDishInfo/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/mealPlans/components/MealPlansDishInfo/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/progress/UserProgress.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/progress/UserProgress.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/NewSettings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/NewSettings.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/components/Field/Field.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/components/Field/Field.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/components/Field/Field.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/components/Field/Field.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/components/FlexibleDaysInfoModal/FlexibleDaysInfoModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/components/FlexibleDaysInfoModal/FlexibleDaysInfoModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/components/GenderTabs/GenderTabs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/components/GenderTabs/GenderTabs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/components/InputWithUnit/InputWithUnit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/components/InputWithUnit/InputWithUnit.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/model/Settings.interface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/model/Settings.interface.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/model/formFieldsConfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/model/formFieldsConfig.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/model/options.ts" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/model/options.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/model/settingsDefaultValues.ts" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/model/settingsDefaultValues.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/model/useSettingsForm.ts" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/app/settings/model/useSettingsForm.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/firstScreen/FirstScreen.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/firstScreen/FirstScreen.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/screens/firstScreen/FirstScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/screens/firstScreen/FirstScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/ui/ModalSelect/ModalSelect.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/ui/ModalSelect/ModalSelect.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/ui/ModalSelect/ModalSelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/ui/ModalSelect/ModalSelect.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/ui/MultiSelectDropdown/MultiSelectDropdown.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/ui/MultiSelectDropdown/MultiSelectDropdown.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/app/components/ui/MultiSelectDropdown/MultiSelectDropdown.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/app/components/ui/MultiSelectDropdown/MultiSelectDropdown.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/entities/settings/types/settings.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/entities/settings/types/settings.types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/feature/chat/model/settingsMapper.ts" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/feature/chat/model/settingsMapper.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/feature/chat/model/useChat.ts" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/feature/chat/model/useChat.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/middleware.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/utils/errorHandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/utils/errorHandler.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-frello/src/utils/highlight.ts" beforeDir="false" afterPath="$PROJECT_DIR$/f-frello/src/utils/highlight.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="36wJ6SEXMoSdlDyqAt1kPM6ILlK" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/PycharmProjects/frello&quot;
+  }
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-4c141bd692a7-e2d783800521-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-251.26927.90" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8465b308-3637-4ebe-ad84-820c51ce4d7e" name="Changes" comment="" />
+      <created>1765911525073</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1765911525073</updated>
+    </task>
+    <servers />
+  </component>
+</project>
