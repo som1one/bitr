@@ -1,8 +1,16 @@
 import logging
 import functools
 import telebot
+import traceback
 
 logger = logging.getLogger(__name__)
+
+# Импортируем сервис логирования ошибок
+try:
+    from services.error_logging_service import ErrorLoggingService
+    ERROR_LOGGING_ENABLED = True
+except ImportError:
+    ERROR_LOGGING_ENABLED = False
 
 def safe_handler(func):
     """Декоратор для безопасной обработки ошибок в обработчиках бота"""
@@ -60,12 +68,30 @@ def safe_send_message(bot, chat_id, text, **kwargs):
     """Безопасная отправка сообщения с обработкой ошибок"""
     try:
         return bot.send_message(chat_id, text, **kwargs)
-    except telebot.apihelper.ApiTelegramException as e:
-        logger.warning(f"Ошибка отправки сообщения в {chat_id}: {e}")
-        return None
-    except Exception as e:
-        logger.error(f"Непредвиденная ошибка при отправке сообщения в {chat_id}: {e}", exc_info=True)
-        return None
+        except telebot.apihelper.ApiTelegramException as e:
+            logger.warning(f"Ошибка отправки сообщения в {chat_id}: {e}")
+            if ERROR_LOGGING_ENABLED:
+                ErrorLoggingService.log_error(
+                    error_type='ApiTelegramException',
+                    error_message=str(e),
+                    error_traceback=traceback.format_exc(),
+                    function_name='safe_send_message',
+                    chat_id=chat_id,
+                    severity='warning'
+                )
+            return None
+        except Exception as e:
+            logger.error(f"Непредвиденная ошибка при отправке сообщения в {chat_id}: {e}", exc_info=True)
+            if ERROR_LOGGING_ENABLED:
+                ErrorLoggingService.log_error(
+                    error_type=type(e).__name__,
+                    error_message=str(e),
+                    error_traceback=traceback.format_exc(),
+                    function_name='safe_send_message',
+                    chat_id=chat_id,
+                    severity='error'
+                )
+            return None
 
 def safe_edit_message_text(bot, chat_id, message_id, text, **kwargs):
     """Безопасное редактирование сообщения с обработкой ошибок"""
@@ -94,7 +120,15 @@ def safe_answer_callback(bot, callback_query_id, text=None, show_alert=False):
     """Безопасный ответ на callback query"""
     try:
         return bot.answer_callback_query(callback_query_id, text=text, show_alert=show_alert)
-    except Exception as e:
-        logger.warning(f"Ошибка ответа на callback query {callback_query_id}: {e}")
-        return None
+        except Exception as e:
+            logger.warning(f"Ошибка ответа на callback query {callback_query_id}: {e}")
+            if ERROR_LOGGING_ENABLED:
+                ErrorLoggingService.log_error(
+                    error_type=type(e).__name__,
+                    error_message=str(e),
+                    error_traceback=traceback.format_exc(),
+                    function_name='safe_answer_callback',
+                    severity='warning'
+                )
+            return None
 
