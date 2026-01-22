@@ -26,6 +26,7 @@ class PaymentLog(Base):
     source = Column(String)  # "yookassa", "admin"
     comment = Column(String, nullable=True)  # комментарий (например, для наличной оплаты)
     created_at = Column(DateTime, default=datetime.utcnow)
+    payment_date = Column(DateTime, nullable=True)  # дата фактической оплаты (может отличаться от created_at)
 
 def init_db():
     # Импортируем все модели для создания таблиц
@@ -98,6 +99,22 @@ def init_db():
         else:
             with engine.connect() as conn:
                 conn.execute(text("UPDATE cash_allocations SET month_index = -1 WHERE payment_id LIKE 'init_%'"))
+                conn.commit()
+    except Exception:
+        pass
+
+    # Миграция: добавляем поле payment_date в payment_logs
+    try:
+        if "sqlite" in str(DATABASE_URL):
+            with engine.connect() as conn:
+                cols = conn.execute(text("PRAGMA table_info(payment_logs)")).fetchall()
+                col_names = {row[1] for row in cols}
+                if "payment_date" not in col_names:
+                    conn.execute(text("ALTER TABLE payment_logs ADD COLUMN payment_date DATETIME"))
+                conn.commit()
+        else:
+            with engine.connect() as conn:
+                conn.execute(text("ALTER TABLE payment_logs ADD COLUMN IF NOT EXISTS payment_date TIMESTAMP NULL"))
                 conn.commit()
     except Exception:
         pass

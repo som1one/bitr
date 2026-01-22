@@ -8,7 +8,7 @@ export function getDeal(id) {
   return apiClient.get(`/api/admin/deals/${id}`);
 }
 
-export function recordCashPayment(dealId, allocations, comment) {
+export function recordCashPayment(dealId, allocations, comment, paymentDate = null) {
   const idempotencyKey = (typeof crypto !== "undefined" && crypto.randomUUID)
     ? crypto.randomUUID()
     : `${Date.now()}_${Math.random().toString(16).slice(2)}`;
@@ -20,7 +20,8 @@ export function recordCashPayment(dealId, allocations, comment) {
     comment: comment || null,
     idempotency_key: idempotencyKey,
     amount: totalAmount,
-    allocations: safeAllocs
+    allocations: safeAllocs,
+    payment_date: paymentDate || null
   });
 }
 
@@ -28,3 +29,6 @@ export function updateDealSettings(dealId, settings) {
   return apiClient.put(`/api/admin/deals/${dealId}/settings`, settings);
 }
 
+export function clearDatabase() {
+  return apiClient.post("/api/admin/database/clear");
+}

@@ -29,6 +29,7 @@ class CashPaymentRequest(BaseModel):
     allocations: Optional[List[CashPaymentAllocation]] = None
     comment: Optional[str] = None
     idempotency_key: Optional[str] = None
+    payment_date: Optional[str] = None  # дата оплаты в формате YYYY-MM-DD (если не указана, используется текущая дата)
 
 class DealSettingsRequest(BaseModel):
     total_amount: Optional[int] = None
@@ -607,6 +608,15 @@ def record_cash_payment(
         else:
             combined = (final_comment[:500] if final_comment else None)
 
+        # Парсим дату оплаты, если указана
+        payment_date = None
+        if request.payment_date:
+            try:
+                payment_date = datetime.strptime(request.payment_date, "%Y-%m-%d")
+            except ValueError:
+                logger.warning(f"Invalid payment_date format: {request.payment_date}, using current date")
+                payment_date = datetime.utcnow()
+        
         log_entry = PaymentLog(
             deal_id=str(deal_id),
             payment_id=payment_id,
@@ -614,7 +624,8 @@ def record_cash_payment(
             status="paid",
             source="admin_cash",
             comment=combined,
-            created_at=datetime.utcnow()
+            created_at=datetime.utcnow(),
+            payment_date=payment_date or datetime.utcnow()
         )
         db.add(log_entry)
 
@@ -688,6 +699,159 @@ def record_cash_payment(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Ошибка при записи оплаты наличными: {str(e)}"
         )
+
+@router.post("/database/clear")
+def clear_database(
+    user = Depends(require_admin),
+    db: Session = Depends(get_db)
+):
+    """
+    Очищает все таблицы базы данных и автоматически заполняет данными из Bitrix24.
+    ОПАСНАЯ ОПЕРАЦИЯ! Использовать только для тестирования или полного сброса.
+    """
+    logger.warning(f"Admin {user.email} is clearing the database")
+    
+    try:
+        from models.cash_allocation import CashAllocation
+        from models.payment_log import PaymentLog
+        
+        # Очищаем таблицы в правильном порядке (сначала зависимые)
+        deleted_allocations = db.query(CashAllocation).delete()
+        deleted_logs = db.query(PaymentLog).delete()
+        deleted_deals = db.query(Deal).delete()
+        
+        db.commit()
+        
+        logger.warning(f"Database cleared: {deleted_deals} deals, {deleted_logs} payment logs, {deleted_allocations} allocations")
+        
+        # Автоматически заполняем БД данными из Bitrix24
+        logger.info("Начало автоматической синхронизации данных из Bitrix24...")
+        sync_result = sync_bitrix_to_db(db)
+        
+        return {
+            "success": True,
+            "message": "База данных успешно очищена и заполнена данными из Bitrix24",
+            "deleted": {
+                "deals": deleted_deals,
+                "payment_logs": deleted_logs,
+                "cash_allocations": deleted_allocations
+            },
+            "synced": sync_result
+        }
+    except Exception as e:
+        db.rollback()
+        logger.error(f"Error clearing database: {e}", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Ошибка при очистке базы данных: {str(e)}"
+        )
+
+
+def sync_bitrix_to_db(db: Session) -> dict:
+    """
+    Синхронизирует данные из Bitrix24 в БД.
+    Возвращает статистику синхронизации.
+    """
+    try:
+        from bitrix.client import get_all_installment_deals, _get_full_deal
+        from bitrix.parsing import parse_money_to_int, parse_int
+        from core.config import settings
+        import requests
+        
+        # Получаем все сделки с рассрочкой из Bitrix24
+        bitrix_deals = get_all_installment_deals()
+        logger.info(f"Найдено {len(bitrix_deals)} сделок с рассрочкой в Bitrix24")
+        
+        if not bitrix_deals:
+            return {
+                "success": True,
+                "message": "Не найдено сделок с рассрочкой в Bitrix24",
+                "synced_count": 0,
+                "error_count": 0
+            }
+        
+        success_count = 0
+        error_count = 0
+        
+        for bitrix_deal in bitrix_deals:
+            deal_id = bitrix_deal.get("ID")
+            if not deal_id:
+                error_count += 1
+                continue
+            
+            try:
+                # Получаем полные данные сделки
+                full_deal = _get_full_deal(deal_id)
+                if not full_deal:
+                    error_count += 1
+                    continue
+                
+                # Получаем email контакта
+                contact_id = bitrix_deal.get("CONTACT_ID") or full_deal.get("CONTACT_ID")
+                email = ""
+                if contact_id:
+                    try:
+                        url = f"{settings.BITRIX_WEBHOOK_URL}/crm.contact.get"
+                        params = {"ID": contact_id}
+                        res = requests.get(url, params=params, timeout=10)
+                        if res.status_code == 200:
+                            contact = res.json().get("result", {})
+                            email_val = contact.get("EMAIL")
+                            if isinstance(email_val, list) and email_val:
+                                first = email_val[0]
+                                email = first.get("VALUE", "") if isinstance(first, dict) else str(first)
+                            elif isinstance(email_val, str):
+                                email = email_val
+                    except Exception:
+                        pass
+                
+                # Парсим данные
+                title = full_deal.get("TITLE") or bitrix_deal.get("TITLE") or ""
+                total_amount = parse_money_to_int(full_deal.get("OPPORTUNITY"))
+                paid_amount = parse_money_to_int(full_deal.get("UF_PAID_AMOUNT"))
+                term_months = parse_int(full_deal.get("UF_TERM_MONTHS"))
+                initial_payment = parse_money_to_int(full_deal.get("UF_INITIAL_PAYMENT")) or 0
+                
+                # Создаем запись в БД
+                db_deal = Deal(
+                    deal_id=str(deal_id),
+                    title=title,
+                    email=email,
+                    total_amount=total_amount,
+                    paid_amount=paid_amount,
+                    initial_payment=initial_payment,
+                    term_months=term_months,
+                    created_at=datetime.utcnow(),
+                    updated_at=datetime.utcnow()
+                )
+                db.add(db_deal)
+                success_count += 1
+                
+            except Exception as e:
+                logger.error(f"Ошибка при синхронизации сделки {deal_id}: {e}")
+                error_count += 1
+        
+        db.commit()
+        
+        logger.info(f"Синхронизация завершена: успешно {success_count}, ошибок {error_count}")
+        
+        return {
+            "success": True,
+            "message": f"Синхронизировано {success_count} сделок из Bitrix24",
+            "synced_count": success_count,
+            "error_count": error_count,
+            "total_found": len(bitrix_deals)
+        }
+        
+    except Exception as e:
+        db.rollback()
+        logger.error(f"Ошибка при синхронизации из Bitrix24: {e}", exc_info=True)
+        return {
+            "success": False,
+            "message": f"Ошибка при синхронизации: {str(e)}",
+            "synced_count": 0,
+            "error_count": 0
+        }
 
 @router.post("/telegram/test")
 def test_telegram_notification(

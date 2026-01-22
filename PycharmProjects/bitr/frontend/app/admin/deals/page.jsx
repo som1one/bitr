@@ -3,15 +3,18 @@
 import { useDeals } from "@/modules/admin/deals/hooks";
 import DealsTable from "@/components/admin/DealsTable";
 import { Loader, ErrorState, EmptyState } from "@/components/ui/State";
-import { ClipboardList, DollarSign, Wallet, Banknote, Search, Download, TestTube } from "lucide-react";
+import { ClipboardList, DollarSign, Wallet, Banknote, Search, Download, TestTube, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { testWebhook } from "@/modules/admin/payments/api";
+import { clearDatabase } from "@/modules/admin/deals/api";
 
 export default function AdminDealsPage() {
   const { deals, loading, error, refetch } = useDeals();
   const [searchQuery, setSearchQuery] = useState("");
   const [testingWebhook, setTestingWebhook] = useState(false);
   const [webhookTestResult, setWebhookTestResult] = useState(null);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
+  const [clearing, setClearing] = useState(false);
 
   const installmentDeals = useMemo(() => {
     if (!deals) return [];
@@ -126,6 +129,20 @@ export default function AdminDealsPage() {
     link.click();
   };
 
+  const handleClearDatabase = async () => {
+    setClearing(true);
+    try {
+      await clearDatabase();
+      alert("База данных успешно очищена!");
+      setShowClearConfirm(false);
+      refetch();
+    } catch (error) {
+      alert(`Ошибка при очистке базы данных: ${error.message || "Неизвестная ошибка"}`);
+    } finally {
+      setClearing(false);
+    }
+  };
+
   if (loading) {
     return (
       <main className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900">
@@ -215,6 +232,13 @@ export default function AdminDealsPage() {
               <Download className="w-4 h-4" />
               Экспорт
             </button>
+            <button 
+              onClick={() => setShowClearConfirm(true)}
+              className="px-4 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center gap-2 font-medium"
+            >
+              <Trash2 className="w-4 h-4" />
+              Очистить БД
+            </button>
           </div>
         </div>
 
@@ -286,6 +310,64 @@ export default function AdminDealsPage() {
           <DealsTable deals={filteredDeals} onRefresh={refetch} />
         </div>
       </div>
+
+      {/* Модальное окно подтверждения очистки БД */}
+      {showClearConfirm && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-slate-800 border border-red-500/50 rounded-xl p-6 max-w-md w-full mx-4 shadow-2xl">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2 bg-red-500/20 rounded-lg">
+                <Trash2 className="w-6 h-6 text-red-400" />
+              </div>
+              <h2 className="text-xl font-semibold text-white">Очистка базы данных</h2>
+            </div>
+            
+            <div className="mb-6">
+              <p className="text-slate-300 mb-2">
+                Вы уверены, что хотите очистить всю базу данных?
+              </p>
+              <p className="text-sm text-red-400 font-medium">
+                ⚠️ Это действие удалит:
+              </p>
+              <ul className="text-sm text-slate-400 mt-2 ml-4 list-disc space-y-1">
+                <li>Все сделки (deals)</li>
+                <li>Все логи платежей (payment_logs)</li>
+                <li>Все распределения платежей (cash_allocations)</li>
+              </ul>
+              <p className="text-sm text-red-400 font-medium mt-4">
+                Это действие нельзя отменить!
+              </p>
+            </div>
+
+            <div className="flex gap-3 justify-end">
+              <button
+                onClick={() => setShowClearConfirm(false)}
+                disabled={clearing}
+                className="px-4 py-2 border border-slate-600 text-slate-300 rounded-lg hover:bg-slate-700 disabled:opacity-50 transition-colors"
+              >
+                Отмена
+              </button>
+              <button
+                onClick={handleClearDatabase}
+                disabled={clearing}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 flex items-center gap-2 transition-colors"
+              >
+                {clearing ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Очистка...
+                  </>
+                ) : (
+                  <>
+                    <Trash2 className="w-4 h-4" />
+                    Очистить БД
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

@@ -7,6 +7,11 @@ export default function CashPaymentModal({ dealId, onClose, onSuccess }) {
   const [deal, setDeal] = useState(null);
   const [selected, setSelected] = useState({}); // index -> amount
   const [comment, setComment] = useState("");
+  const [paymentDate, setPaymentDate] = useState(() => {
+    // Устанавливаем сегодняшнюю дату по умолчанию
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [loadingDeal, setLoadingDeal] = useState(true);
@@ -108,7 +113,7 @@ export default function CashPaymentModal({ dealId, onClose, onSuccess }) {
     setError(null);
 
     try {
-      await recordCashPayment(dealId, allocations, comment);
+      await recordCashPayment(dealId, allocations, comment, paymentDate);
       onSuccess?.();
       onClose();
     } catch (err) {
@@ -190,6 +195,20 @@ export default function CashPaymentModal({ dealId, onClose, onSuccess }) {
                 })
               )}
             </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-slate-300 mb-1">
+              Дата оплаты
+            </label>
+            <input
+              type="date"
+              value={paymentDate}
+              onChange={(e) => setPaymentDate(e.target.value)}
+              className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              disabled={loading}
+            />
+            <p className="text-xs text-slate-400 mt-1">Выберите фактическую дату оплаты</p>
           </div>
 
           <div>
